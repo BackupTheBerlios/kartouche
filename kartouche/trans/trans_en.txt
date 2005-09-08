@@ -1,0 +1,140 @@
+##Translation file for English (en)
+
+##navbar.php
+main=KGyfieithu
+subproj=Your Translation Project
+home=Intro
+remember=Remember!
+use=Usage
+sel_file=Start translating!
+fame=Hall of Fame
+change_lg=Change to Welsh
+
+##remember.php
+notes=Notes on translation
+
+##get_tables.php
+filename=Name of file
+total_str=Contents
+percent_tr= Translated
+
+##gwein/adm_get_tables.php
+sugg_no=Suggestions
+all_view=View all records ("all")
+empty_view=View records which have not yet been translated ("empty")
+sugg_view=View records for which translations have been suggested ("suggestions")
+done_view=View records which have already been translated ("done")
+curr_view=Your current view for the tables below is
+change_view=Change view
+all=all
+empty=empty
+sugg=suggestions
+done=done
+
+##editpot.php
+nextlot=Next page
+prevlot=Previous page
+gothere=Specific item
+show_rec=Showing records
+out_of=out of
+in=in
+ipaddr=We are recording your IP address:
+submit=Submit suggestions
+hallfame1=Enter your nickname here if you want to be entered in the
+hallfame2=Hall of Fame:
+orig_text=Original text
+curr_trans=Current translation
+sugg_trans=Suggested translation
+alt_int=Alternative interface: click
+
+##editpot_alternative.php
+classic_int=Classic interface: click
+click_here=here
+alt_orig_text=Original text:
+alt_curr_trans=Current translation:
+alt_sugg_trans=Your suggested translation (tick the check-box to the right to confirm):
+alt_input_trans=The following translation has been suggested:
+
+##gwein/navbar.php
+adm_main=Kyfieithu
+adm_home=Administration
+adm_sel_file=Add suggestions
+adm_acc_file=Accept suggestions
+adm_export=Export
+adm_import=Import
+
+##gwein/edit_sugg.php
+transfer=Transfer suggestions
+accept=Accept
+delete=Delete
+
+##gwein/sel_exp.php
+export=Export selected files
+
+##gwein/sel_imp.php
+import=Import files in this directory
+file_path=Path to files:
+
+##gwein/import.php
+create_msg=Created new table
+import_msg=Beginning import into table
+read_msg=Please wait - reading lines in
+success_msg=successfully imported!
+
+##gwein/export.php
+export_msg=successfully exported!
+
+##hallfame.php
+nick=Contributor
+total_acc=Total
+files=Files
+per_file=Per file
+strings=Strings
+unspec=unspecified
+cont_rec=The total number of contributions recorded is:
+sub_total=Sub-total
+
+##file_contrib.php
+file=File
+
+##omnivore/index.php
+omnivore=Omnivore
+welcome_e=Welcome to Omnivore <br>(chewing up English, spitting out Welsh)
+welcome_w=Welcome to Omnivore <br>(chewing up Welsh, spitting out English)
+change_dir=Change the language I'm eating
+wordin=Feed me a word (in small letters)
+chew=Chew on it ...
+notyetom=Sorry - Omnivore has not yet digested that word, but it will now be put on the menu ....
+missing_words=Missing words
+
+##gwein/sel_sweep.php
+sweep=Sweep in these translations
+adm_sweep=Feed Omnivore
+
+##failed_om.php
+missing=Missing term
+failed_srch=Number of searches
+
+##Kartouche errors
+kerr1=Kartouche error:<br> Can't select the records from the table
+kerr2=Kartouche error:<br> There seem to be no records of that kind in the table
+kerr3=Kartouche error:<br> Can't do the suggestion updates
+kerr4=Kartouche error:<br> Can't fetch the submitter's name
+kerr5=Kartouche error:<br> Can't insert the submitter's name into the Hall of Fame
+kerr6=Kartouche error:<br> Can't delete the suggestion
+kerr7=Kartouche error:<br> You made no decisions on what to do with these records. <br> Please press the Back button on your browser and try again.
+kerr8=Kartouche error:<br> Can't list the tablenames
+kerr9=Kartouche error:<br> Can't select the total count
+kerr10=Kartouche error:<br> Can't select the untranslated count
+kerr11=Kartouche error:<br> Can't select the suggestion count
+kerr12=Kartouche error:<br> Can't select the filenames and totals
+kerr13=Kartouche error:<br> Can't select the contributors and totals
+kerr14=Kartouche error:<br> Can't select the strings
+kerr15=Kartouche error:<br> Can't get the total entries in Omnivore
+kerr16=Kartouche error:<br> Can't do the wordsearch
+kerr17=Kartouche error:<br> Can't insert the missing word
+
+
+
+
+

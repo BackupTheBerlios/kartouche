@@ -1,0 +1,2066 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
+	<META NAME="AUTHOR" CONTENT="Kevin Donnelly">
+	<META NAME="CREATED" CONTENT="20030204;23022600">
+	<META NAME="CHANGED" CONTENT="20031031;14415700">
+	<STYLE>
+	<!--
+		@page { margin: 2cm }
+		TD P { margin-bottom: 0.21cm }
+		H1 { margin-bottom: 0.21cm }
+		H1.western { font-family: "Albany", sans-serif; font-size: 16pt }
+		H1.cjk { font-size: 16pt }
+		H1.ctl { font-size: 16pt }
+		P { margin-bottom: 0.21cm }
+		H2 { margin-bottom: 0.21cm }
+		H2.western { font-family: "Albany", sans-serif; font-size: 14pt; font-style: italic }
+		H2.cjk { font-size: 14pt; font-style: italic }
+		H2.ctl { font-size: 14pt; font-style: italic }
+		H4 { margin-bottom: 0.21cm }
+		H4.western { font-family: "Albany", sans-serif; font-size: 11pt; font-style: italic }
+		H4.cjk { font-size: 11pt; font-style: italic }
+		H4.ctl { font-size: 11pt; font-style: italic }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US">
+<H1 CLASS="western"><IMG SRC="images/kartouche2.png" NAME="Kartouche logo" ALT="Kartouche logo" ALIGN=LEFT VSPACE=8 WIDTH=330 HEIGHT=50 BORDER=0><BR CLEAR=LEFT>A
+team-based translation mechanism</H1>
+<H4 CLASS="western">Version 0.2 – 28 October 2003</H4>
+<H1 CLASS="western">Kevin Donnelly</H1>
+<H4 CLASS="western">Kartouche is free software, and is released under
+the GPL</H4>
+<HR>
+<H2 CLASS="western">Introduction</H2>
+<P>This installation guide is aimed at people who are or will be
+co-ordinators for their language teams. Ordinary users may also find
+it useful, but some parts may not be relevant to them except as an
+exercise in running Kartouche locally. Please let me know of any
+mistakes or inaccuracies in this manual – email <I>kevin@dotmon.com</I>.</P>
+<P>I would also be grateful for any (politely-expressed) comments,
+code snippets, etc which may help to improve Kartouche. There is no
+need for you to write and tell me that my coding style is terrible
+(since I am already aware of that, and working daily to improve it!),
+but something along the lines of “this bad ... this better ...”
+would be very welcome.</P>
+<H2 CLASS="western">Acknowledgements</H2>
+<P>Thanks to all the people who have given us GNU, Linux, KDE,
+Apache, PHP and MySQL. Without this superb software it would be much
+more difficult to think about computing in your native language.
+Thanks also to: Thomas Diehl and the kde-i18n-doc list; Pablo de
+Vicente for sorting me out on CVS; Onslaught and others on the
+Devshed PHP forum for help on arrays; Sams, O'Reilly, New Riders and
+Coriolis for wonderful books, and their authors for writing them;
+JaguarPC for great hosting; J Wynia (<I>www.phpgeek.net</I>) for a
+simple way of providing a one-click change of language; Hermawan
+Haryanto (<I>www.dmonster.com</I>) for the profanity filter; Dewi
+Jones (<I>www.gwelywiwr.org</I>) for various comments, and advice on
+Mozilla; Pink Goblin (<I>www.pinkgoblin.com</I>) for concise info on
+magic_quotes; Reinhold Kainhofer for his Meroitic font
+(<I>fonts.kainhofer.com</I>); Frikkie Thirion for CVS advice and some
+useful code for accepting the translation suggestions; Dafydd Harries
+and the other members of the Gnome-cy mailing list for useful ideas
+and comments; Alan Cox for setting me straight on UTF-8.</P>
+<H2 CLASS="western">License</H2>
+<P>Kartouche has been designed and coded by me, Kevin Donnelly, and
+is released under the GPL. This documentation is released under the
+GNU Free Documentation License.</P>
+<H2 CLASS="western">Changelog</H2>
+<P>The initial version of Kartouche (0.0.1a) was launched at the
+beginning of February 2003. A few changes were made to it before the
+launch of KGyfieithu, our Welsh translation site
+(www.kyfieithu.co.uk) at the beginning of March 2003. The running
+version had additions made to it to allow a “Hall of Fame”, and
+to collect all translations made through the site, and those produced
+by other translation projects such as Mozilla and Mandrake, but this
+version (0.1) was never formally released. Since launch, Kartouche
+has handled over 30,000 strings from KDE and Gnome, and so far it has
+proved adaptable and robust. It therefore seemed appropriate, now
+that both KDE and Gnome are listed as fully supported in Welsh, to
+take the time to prepare a new release (0.2). Although this release
+has only been tested on my own PC, it will shortly be implemented on
+the site, so again it will be subject to real-world testing. The
+usual caveats apply, though – if Kartouche microwaves your cat or
+sleeps with your girlfriend, don't blame me! I will merely laugh in
+your face and say, “where's your backup?” (I say this with
+feeling, since in the last six months the hard disks on the
+KGyfieithu site, the KDE info site, and my own main machine have all
+crashed ....)</P>
+<P>More detailed changelog information follows:</P>
+<P><B>0.2 (28 October 2003)</B></P>
+<UL>
+	<LI><P>One-pass acceptance or deletion of submitted suggestions is
+	now possible (based on code from Frikkie Thirion), instead of having
+	to accept suggestions first, and then delete unwanted ones.</P>
+	<LI><P>Kartouche error messages now come up in the interface
+	language (not all do so yet - this is a matter of finding time to go
+	through the rest of the code). 
+	</P>
+	<LI><P>Translation progress bars are now generated on the fly, and
+	don't create static images; they have also been added to the
+	relevant admin page. 
+	</P>
+	<LI><P>The admin table selection page now has switches to show
+	translated records only, untranslated records only, and suggestions
+	only 
+	</P>
+	<LI><P>Po files can now be exported directly from the user pages for
+	editing on the local PC - this is based on an idea by Dafydd
+	Harries. (Note that the exports will not include translation
+	suggestions - only comments, msgids and msgstrs.) At present this
+	functionality exists alongside the earlier export to a file, but
+	that may be discontinued in later versions, since the new export to
+	screen is easier to use. 
+	</P>
+	<LI><P>The &quot;Hall of Fame&quot; functionality now allows
+	contributors to each file to be logged, and then provides a detailed
+	breakdown of contributions by file and individual, down to the
+	actual string translated. 
+	</P>
+	<LI><P>An alternative user interface for entering suggestions is
+	provided, based on an idea from a French group. It may be preferable
+	when long strings are to be translated, but because it is harder to
+	read where short strings are concerned, it is not made the default. 
+	</P>
+	<LI><P>The initial Omnivore page now lists the number of
+	translations from each source file. The Omnivore tables are now held
+	in a separate database from the Kartouche tables, for ease of backup
+	and deployment elsewhere. 
+	</P>
+	<LI><P>The Omnivore data (currently only in msgid-&gt;msgstr
+	direction) can now be made available via a sidebar entry in Mozilla.
+		</P>
+	<LI><P>The source file and id number is now shown for each Omnivore
+	entry returned.</P>
+</UL>
+<P><B>0.1 (April/May 2003)</B></P>
+<UL>
+	<LI><P>Addition of Hall of Fame to credit contributors to the site.</P>
+	<LI><P>Creation of an online dictionary (Omnivore) to hold all the
+	msgid/msgstr entries of any files that have passed through
+	Kartouche, and to allow translated po files from other sources to be
+	fed in as well by loading them temporarily into Kartouche. Searches
+	can be done in either language, in either direction. 
+	</P>
+	<LI><P>Addition of a switch to toggle between viewing all items and
+	viewing untranslated strings only.</P>
+	<LI><P>Addition of bar graph to aid visualisation of progress on a
+	file.</P>
+</UL>
+<P><B>0.0.1c (end-February2003)</B></P>
+<UL>
+	<LI><P>Removed redundant code for adding header info to the file (it
+	is added on import already). 
+	</P>
+	<LI><P>Made some changes to fns.php. 
+	</P>
+	<LI><P>Added KARTOUCHE variable in config.php to give Kartouche
+	version number.</P>
+</UL>
+<P><B>0.0.1.b (25 February 2003)</B></P>
+<UL>
+	<LI><P>Added bottom navbar. 
+	</P>
+	<LI><P>Added grand totals on userland select table page. 
+	</P>
+	<LI><P>Added delete option on admin accept suggestions page, to
+	empty a suggestion box. 
+	</P>
+	<LI><P>Added a profanity filter (based on code from Hermawan
+	Haryanto).</P>
+</UL>
+<P><B>0.0.1a (7 February 2003)</B></P>
+<UL>
+	<LI><P>Initial demo release of Kartouche. Stable and reliable, but
+	needs some code cleanup, a security review, etc. 
+	</P>
+</UL>
+<H2 CLASS="western">Internationalisation – i18n</H2>
+<P>The two main GNU/Linux desktops, KDE and Gnome, along with much
+other free software, have active projects to provide their software
+in as many languages as possible. Most of these projects use the GNU
+gettext system to allow the language-specific strings in a software
+package to be extracted, translated, and replaced at run-time with
+the new target language translations. The translations are provided
+by groups of volunteers, who in the case of KDE and Gnome are taking
+on a major commitment – both desktops have about 70,000 strings in
+their full install that need to be translated, and for a language to
+be counted as “fully supported” (ie providing desktop
+interactions in the target language, as opposed to providing
+connected desktop applications in that language) over 15,000 strings
+must be translated. Nevertheless, both KDE and Gnome users have
+responded to this demand, with both currently shipped with support
+for 30-40 languages, and another 30-40 being worked on.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The gettext system
+(for more information see the excellent manual) works by extracting
+the language strings into a Portable Object Template (.pot) file,
+which is a text file containing comment lines (usually the line of
+the program where the string occurs), msgid lines (the language
+strings to be translated), and msgstr lines (the translation in the
+target language). The msgstr lines will be blank, ready to accept a
+translation for the corresponding msgid. The translator(s) pick a
+.pot file, open it, and start filling in the blanks. Once completed
+and checked, this is renamed to a Portable Object (.po) file, and
+this is then turned into a Machine Object (.mo) file, which (when it
+is made available on an appropriately-configured machine) the
+software application will read, and, lo and behold, the application
+will now present its interface in the target language.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The above is a
+simplified version of what needs to be done. Although not strictly
+within the bounds of Kartouche, this manual will go into some of
+these aspects in a bit more detail later (eg Where do I get the
+files? How do I make the translations available to others? How do I
+set up my machine to use the translations?), because the answers to
+these issues are sometimes not obvious. The rest of the manual will
+tend to focus on KDE, rather than Gnome or other software projects,
+because that is what I use daily, and I am most familiar with its
+translation requirements. (But I would be happy to include any
+additions giving more information on Gnome, etc, if those familiar
+with this project would like to provide them.)</P>
+<H2 CLASS="western">Why Kartouche? 
+</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Translating .po
+files can be done with a simple text-editor, or using a dedicated .po
+editor such as KBabel. Using a text editor can be confusing to people
+who are used to word-processors, and to use KBabel you have to be
+running Linux (and some people who might want to see a desktop in
+their own language may not yet feel able to switch away from legacy
+operating systems like Windows). With both options, synchronising
+translations from a number of individuals can be difficult (some KDE
+translation teams run their own CVS (versioning) software for this,
+which leads to other problems), and the files are all tied to the PC
+that they are being translated on. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Kartouche is an
+attempt to deal with some of these issues by using distributed
+network computing, which has already given a crucial impetus to the
+development of free and open-source software.The key benefits are: 
+</P>
+<UL>
+	<LI><P>Access to the project is ubiquitous, provided the
+	translator's PC has a browser (and how many don't nowadays?) 
+	</P>
+	<LI><P>Translators are not tied to one PC - they can translate
+	whenever and wherever they like, provided they have Net access 
+	</P>
+	<LI><P>The interface is simple and easy to navigate - just point and
+	click! 
+	</P>
+	<LI><P>There is no need to learn any other software - people who see
+	themselves as less IT-literate may be more ready to join the pool of
+	translators 
+	</P>
+	<LI><P>Ad hoc translation can be accommodated and even encouraged -
+	there is no need to invest significant amounts of time and effort 
+	</P>
+	<LI><P>Potential helpers can be given a single web-address and left
+	to do as much or as little as they want – this simplifies
+	publicity and marketing 
+	</P>
+	<LI><P>Everyone can get a simple up-to-date overview of progress
+	made 
+	</P>
+	<LI><P>The entire translation corpus is available for review via one
+	central point – this creates a massive online translation resource
+	which can be mined in future to speed the translation of other
+	applications 
+	</P>
+	<LI><P>The same application can be used for other apps which do not
+	use gettext (eg Mozilla, phpBB, OpenOffice.org) if appropriate
+	import/export filters were developed 
+	</P>
+</UL>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The main drawback
+is that in order to get the most out of what is intended to be a
+team-based collaborative system, Kartouche needs to be available on
+the Internet, or at least some sort of LAN. It is possible to run it
+on a standalone system, and there are still benefits to this (eg any
+translations done can be fed into the central database pool later),
+but it is not using it to its best advantage. It may therefore be
+that Kartouche is less valuable in situations where Internet access
+is either not available, or is relatively expensive or unreliable.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Another perceived
+drawback when KGyfieithu was launched was that the open-entry system
+might be abused by the feeble-minded. To discourage this, the IP
+address and date/time of all suggestions are recorded, and there is
+also a profanity filter of sorts in place, so that you can catch the
+most offensive words people are likely to use. In practice, though,
+this has not proved to be a problem at all so far.</P>
+<P>Another point to note is that some files do not import correctly,
+because the current filter assumes that all the .pot files will have
+comment lines, and gives odd results when they don't. This will be
+resolved in later versions by providing alternative import filters,
+but for the time being, I suggest simply leaving anomalous files to
+the end of your project – there is probably more than enough other
+material to translate. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">There are some
+minor feature shortcomings - for example, KBabel will check items of
+the form “Name=Display&quot; to ensure that only &quot;Display&quot;
+and not &quot;Name&quot; has been translated - this is not yet
+implemented in Kartouche, but probably will be as soon as I learn a
+bit more about regular expressions! 
+</P>
+<H2 CLASS="western">How Kartouche works</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Kartouche is built
+on PHP (<I>www.php.net</I>) and MySQL (<I>www.mysql.com</I>), and
+these must therefore be available on the webserver from which you
+plan to offer the application. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The various <I>.pot</I>
+files are first imported into a MySQL database, one file to a table.
+To give some indication of speed, a test import of 590 non-docs <I>.pot</I>
+files from the main KDE CVS tree (most of the tree, in other words)
+took around 1min 40secs on a Duron 1.2 MHz PC with 256 Mb memory,
+with the largest file, kdelibs (with 3,000+ phrases), taking around
+10secs. The import filter allows an entire tree to be imported at
+once – it will traverse all the directories, and assign names to
+the tables based on those. (However, in practice I no longer do this,
+for a number of reasons: the table names get too long; it is not
+sensible to put all those files on your site at once; since you are
+putting them on in batches, you want to choose the most recent <I>.pot
+</I>files, and not ones that were Kartouched some months ago;
+choosing a directory rather than a tree allows easier picking and
+choosing of the tables that will be presented.) 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Once the database
+tables have been transferred to a website, Kartouche provides a
+browser-based front-end for people to select a file (table) and add
+suggested translations to it, and a back-end for the translation
+co-ordinator to accept or reject those suggestions. Once the table is
+complete, it can be exported to a <I>.po</I> file. All translations
+that have been put through the system are available for lookup via a
+searchable sister application called Omnivore.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Currently, the
+import and export processes are best done on a local PC, but they can
+also be done on the website itself (this requires some trickery to
+give the webserver ownership of Kartouche's import and export
+directories. The current (0.2) version of Kartouche also adds an
+“export to screen” function, where the <I>.po</I> files can be
+exported to the browser for saving on the user's local PC.</P>
+<H2 CLASS="western">Quick Setup</H2>
+<P>The following is a quick guide to setting up Kartouche on either a
+local machine or a webserver:</P>
+<OL>
+	<LI><P>Untar the Kartouche download and move the directories
+	/<B>kartouche</B> and /<B>omnivore</B> to a browser-accessible
+	location (eg <I>~/public_html</I>, <I>/srv/www/htdocs</I>,
+	<I>www.yourdomain.com/translation</I>). Note that these are sister
+	directories, ie they should be on the same level (eg
+	<I>~/public_html/kartouche</I> and <I>~/public_html/omnivore</I>).</P>
+	<LI><P>Create a directory /<B>includes</B> above the web-tree (eg
+	<I>~/includes</I>, <I>/srv/includes</I>, y<I>our_ssh_login_to
+	your_webserver/includes</I>).</P>
+	<LI><P>Move the /<B>kartouche/kartouche</B> directory into the
+	includes directory, and do likewise for the <B>/omnivore/omnivore</B>
+	directory. Delete the <B>/kartouche/gwein/kartouche</B> directory.
+	(Kartouche will work out of the box without these two steps, but
+	they are necessary to provide some protection to your database
+	information.)</P>
+	<LI><P>Ensure that your PHP setup matches that required by Kartouche
+	– <I>register_globals</I> is on, <I>magic_quotes </I>is off, and
+	the path to the <B>includes</B> directory above needs to be
+	activated. You can adjust your PHP setup either in the <B>php.ini</B>
+	file, or by means of <B>.htaccess</B> files – see below.</P>
+	<LI><P>Create the Kartouche database. You can either use something
+	like the sometimes flaky <I>phpMyAdmin</I> for this, or the
+	command-line <I>mysql</I> client. With the latter, go to the
+	<B>/kartouche/sql</B> directory and run: <B>mysql -uyouruser -p
+	kartouche &lt; kartouche.sql</B>. Then delete the <B>/kartouche/sql</B>
+	directory.</P>
+	<LI><P>Create the Omnivore database. Using the <I>mysql</I> client,
+	go to the <B>/omnivore/sql</B> directory and run: <B>mysql
+	-uyouruser -p omnivore &lt; omnivore.sql</B>. Then delete the
+	<B>/omnivore/sql </B>directory.</P>
+	<LI><P>Set up the import directory. (In the original version of
+	Kartouche, both the import and export directories were actual
+	directories, but in practice it is much handier to make them
+	symlinks – this means that you can plug and unplug different sets
+	of .pot files by simply changing the symlinks, and then changing the
+	database name in the <B>config.php</B> file.) In <B>/kartouche/gwein</B>,
+	run: <B>ln -s /your/import/dir cvstemplates</B>. 
+	</P>
+	<LI><P>Set up the export directory. Run <B>ln -s /your/export/dir
+	exports</B> to create the exports directory – this is less
+	essential now because of the new “export to screen” feature –
+	and either open up the permissions (<B>chmod 666 /your/export/dir</B>)
+	or (better) set the ownership to the webserver (<B>chown
+	wwwrun.nogroup /your/export/dir</B> in the case of SuSE), to allow
+	the webserver to write to that directory.</P>
+	<LI><P>Go to the <B>includes</B> directory you set up earlier (not
+	the <B>includes</B> directories under the Kartouche and Omnivore
+	trees). Edit <B>/kartouche/config.php</B> to give the name of the
+	Kartouche database and the Omnivore database, your username and
+	password, and the web path (WEBURL) to the Kartouche directory. Make
+	similar changes in the <B>/omnivore/config.php</B> file. (Remember
+	to use a trailing slash on the WEBURL entry.)</P>
+	<LI><P>Using a browser, go to <B>/kartouche/gwein/</B>, and choose
+	<B>Import</B> from the navbar. Then click the button to begin the
+	import – if you have any pot files in the import directory you
+	symlinked to <B>cvstemplates</B>, they will be imported, and you
+	will get a message for each one.</P>
+	<LI><P>You can then go to <B>/kartouche/</B> and choose <B>Start
+	translating!</B> (or <B>/kartouche/gwein/ </B>and choose <B>Accept
+	suggestions</B>), and begin entering translations.</P>
+</OL>
+<P STYLE="font-weight: medium">You will then want to tweak the
+default setup to fit your own setup; in brief, you need to:</P>
+<OL>
+	<LI><P STYLE="font-weight: medium">Change all the Kartouche and
+	Omnivore language interface items (currently set to English and
+	Welsh) in <B>/trans/trans_lg.txt</B> and <B>/includes/*_pref.php</B>.</P>
+	<LI><P STYLE="font-weight: medium">Change the Kartouche header
+	functions (<I>replace_comment</I> and <I>replace_msgstr</I> in
+	<B>/includes/fns.php</B>).</P>
+	<LI><P STYLE="font-weight: medium">Set the KGyfieithu link on the
+	navbars to point to your site's “leading” page.</P>
+	<LI><P STYLE="font-weight: medium">Enter your email details in
+	<B>/kartouche/make_sugg.php</B>, so that you will get notification
+	of translations as they are added (obviously, this only applies to
+	the Web copy of Kartouche – it is unnecessary for your local
+	copy).</P>
+</OL>
+<H2 CLASS="western">Using Kartouche</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">To use Kartouche
+as the basis for a collaborative web-based translation effort, the
+translation co-ordinator would:</P>
+<OL>
+	<LI><P>install a local copy of Kartouche, and edit the pages as
+	necessary (see above for quick method, and following sections for
+	more details)</P>
+	<LI><P>download the current CVS .pot files of the target project to
+	the PC running Kartouche</P>
+	<LI><P>import those files into the Kartouche db</P>
+	<LI><P>select which db tables will be presented for translation on
+	the website, and upload those 
+	</P>
+	<LI><P>install a Web copy of Kartouche on the website which will be
+	the translation effort's home</P>
+	<LI><P>decide whether to accept or reject suggested translations
+	from contributors to the project (the co-ordinator gets email
+	notifications of these) 
+	</P>
+	<LI><P>once a table is complete, download it, and export it to a .po
+	file</P>
+	<LI><P>upload the translated file to the target project's CVS</P>
+</OL>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">It would also make
+sense to take periodic backups of the translation db ;-) (Future
+versions of Kartouche will probably include a script for this.)</P>
+<H2 CLASS="western">The longer, boring bits ...</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm; font-weight: medium">
+The following sections deal with each of these processes in more
+detail. The instructions have been pitched at beginner level, to help
+those coming to this for the first time. If you are more
+knowledgeable, and don't need this level of hand-holding, please bear
+with me!</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm; font-weight: medium">
+Installing Kartouche will be easier if you have some experience of
+using MySQL and PHP already. If you are completely new to this, take
+my word for it that time invested in learning about these is well
+worth it; apart from the websites above, and a great number of
+community websites, you chould consider getting a couple of books:
+<I>MySQL</I> (Paul DuBois) [New Riders]; <I>MySQL Cookbook</I> (Paul
+DuBois) [O'Reilly]; <I>PHP Fast and Easy</I> (Julie Meloni); <I>PHP
+and MySQL Web Development</I> (Luke Welling and Laura Thomson)
+[Sams]; <I>PHP Black Book</I> (Peter Moulding) [Coriolis]. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm; font-weight: medium">
+The versions I have used in preparing Kartouche v0.2 were PHP
+4.3.1-24 and MySQL 3.23.55-14, running on Apache 1.3.27-38 on SuSE
+Linux 8.2. In what follows, the filesystem references reflect SuSE's
+file placements, and may differ slightly on your distro, and the
+commands used are those on SuSE, and again may differ slightly on
+your distro – where I am aware of such differences, I'll point them
+out (and of course I'm happy to add any notes from anyone on their
+specific distro). Kartouche should run on Windows, but I have not
+tested this, since I no longer use Windows.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">&lt;<I>lecturemode</I>&gt;
+If you are a newcomer to Linux, PHP, MySQL, KDE, or life, please
+accept a bit of free, but hard-won, advice – WRITE EVERYTHING DOWN.
+That is, print out these instructions, read through them once, then
+go through them again, ticking off bits as you do them, and writing
+notes to yourself if you do anything different. You'd be surprised
+how quickly you forget exactly what things you did in what sequence,
+and then of course you don't know to avoid that the next time ....
+&lt;/<I>lecturemode</I>&gt;</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm; font-weight: medium">
+Bear in mind that this is my first attempt at packaging Kartouche, so
+I may have missed something that is so obvious to me that I didn't
+write about it, or there may even (heaven forfend!) be a bug in this
+fine piece of craftmanship. If you are finding it difficult to get
+things working, email me at <I>kyfieithu@dotmon.com</I>. I can't
+promise to be able to help, but at least I can laugh at your
+predicament in private :-) 
+</P>
+<H2 CLASS="western">UTF-8</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">All translation
+projects should now be using UTF-8, since this is the most effective
+encoding for multi-language representation. Thanks to some helpful
+comments from Alan Cox, my confusion relating to UTF-8 in the first
+release of Kartouche has now been resolved. The Kartouche pages now
+present a UTF-8 header, so everything going into them will be encoded
+in UTF-8 (you can check this by (in Mozilla) using Ctrl+I to get the
+page information, or (in Konqueror) using View -&gt; View Document
+Information). MySQL does not actually care what encoding you are
+using, so provided you refrain from fiddling about with the records
+in an application that is not using UTF-8 encoding, you should be OK
+(you can view the records in such an app, and (in ISO-8859-1, for
+example) you will see various odd character combinations such as &Atilde;&iexcl;
+(which is UTF-8 &aacute; interpreted in ISO-8895), but provided you
+don't edit the record, the UTF-8 encoding will be OK). 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">This means that,
+to avoid annoyance, you should really have your machine set up to use
+UTF-8 by default (you can check your current encoding by running:
+<B>locale charmap</B>). Details on how to do this are at Appendix 1.
+It also means that you have to be vigilant when using some apps. The
+key app to which this relates is probably <I>phpMyAdmin</I>; it is
+supposedly possible to set this up to use UTF-8, but after a good bit
+of fiddling I gave up (if anyone can give me the magic incantations,
+I'd be grateful), so in its default setup you cannot use phpMyAdmin
+to edit the table records (although you can use it for nearly
+everything else). There are also implications for your website copy
+of Kartouche too – most hosters will be running on some sort of
+ISO-8859 encoding, so you cannot depend on any bundled version of
+<I>phpMyAdmin</I> that they offer, and in my experience, some
+<I>phpMyAdmin</I> functions (even such basic ones as dumping) do not
+seem to work correctly when the encoding of the file and the encoding
+of the webserver on which it is located differ. In practice, this is
+not a big problem – using the command-line for backing-up and
+dumping is probably quicker. The only other gotcha I have noticed is
+that the KDE editor Kate will tend to use the encoding of the last
+file opened that is still open – if you set it to ISO-8895, you
+should close all such files, and ensure you set it to UTF-8 before
+you open a .po file for/from Kartouche.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm"><I>&lt;aside&gt;</I>
+If you have some files in ISO-8859 (or some other encoding) that you
+want to change to UTF-8, then you can use gettext's <B>msgconv</B> to
+do this. You can run: <B>msgconv filename.po -t UTF-8 -o
+new_filename.po</B> to produce a new <I>.po</I> file in the UTF-8
+encoding. If you want to do this for a number of files,
+<B>/kartouche/utils</B> contains <B>msgconv.po</B>, which will run
+through a directory and do this for all your Kartouche files (note
+that permissions on the files need to allow the webserver to write to
+them – this means using <B>chmod</B> or <B>chown</B> temporarily;
+see above). The only annoyance is that if these files have already
+been through Kartouche, it has written the <I>Content-Type</I> line
+of the <I>.po</I> header to include &quot;charset=UTF-8&quot; (even
+though the file may have been in some other encoding), on the
+assumption that this is what you would have been using. Inputting
+these files to <B>msgconv</B> gives the following error: 
+</P>
+<P STYLE="margin-left: 2cm; margin-top: 0.3cm; margin-bottom: 0.2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>&lt;location&gt;
+invalid multibyte sequence </FONT></FONT>
+</P>
+<P STYLE="margin-left: 2cm; margin-top: 0.3cm; margin-bottom: 0.2cm"><FONT FACE="Courier, monospace"><FONT SIZE=3><FONT SIZE=2>msgconv
+found &lt;x&gt; fatal errors</FONT> </FONT></FONT>
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">This is because
+<B>msgconv</B> is seeing a UTF-8 header on a file that is not UTF-8
+encoded. You therefore need to open each file and change the encoding
+in the header to something else (eg &quot;charset=ISO-8859-1&quot;),
+and then <B>msgconv</B> will rewrite the charset entry to UTF-8 in
+the conversion process.&lt;<I>/aside</I>&gt;</P>
+<H2 CLASS="western">PHP settings</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm"><B>Magic_quotes</B>
+on PHP is assumed to be turned <B>off</B>. (For a discussion of why
+this is a good thing, see the article at <I>www.pinkgoblin.com/
+quotesarticle.php</I>.) Basically, characters such as ' and \ need to
+be “escaped” with a slash before storage in a MySQL database.
+Magic_quotes are intended to be helpful by doing this automatically
+to any submitted HTML form data or cookies. However, scripts may use
+the addslashes function to do this manually, since the authors cannot
+assume that magic_quotes will be on on every installation, or because
+(as in the case of Kartouche) they need full control over what is
+being passed to the database. This then causes problems in those
+cases where it IS on, since additional backslashes will be inserted
+where they should not be. For Kartouche, it is very important that
+existing slashes (eg in \n) are preserved, but also that they are not
+duplicated, so magic_quotes needs to be off.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">To turn
+<I>magic_quotes</I> off on your local system, as superuser edit your
+<B>php.ini</B> file: <FONT FACE="Nimbus Roman No9 L"><B>pico
+/etc/php.ini</B>, and </FONT>set the <I>magic_quotes_gpc</I> line in
+the <I>Data Handling</I> section to read “Off” (the
+magic_quotes_runtime setting is usually “Off” already):</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>; Magic quotes for
+incoming GET/POST/Cookie data.</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>magic_quotes_gpc = Off</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>; Magic quotes for
+runtime-generated data, e.g. data from SQL, </FONT></FONT>
+</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>from exec(), etc.</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>magic_quotes_runtime =
+Off</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">If for some reason
+you do not want to change the <B>php.ini</B> setting, you can use a
+<B>.htaccess</B> file in the Kartouche directory, as explained in the
+section on hosted webservers below.</P>
+<P><B>Register_globals</B> on PHP is assumed to be turned <B>on</B>.
+On <FONT FACE="Nimbus Roman No9 L">more recent PHP installations on
+some distros (eg on SuSE since 8.1), register_globals is off by
+default, for security reasons, and you will have to set it to “on”.
+This will probably be changed in the next version of Kartouche, but
+in the meantime it checks the most common variables passed from page
+to page. Most webhosts have register_globals set to “on” by
+default, so you don't usually need to do anything there.</FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm; page-break-before: auto; page-break-after: auto">
+To turn register_globals on, in the <I>Data Handling</I> section of
+the <B>php.ini</B> file, edit the relevant line to read:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>register_globals = On </FONT></FONT>
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Again, you can use
+a <B>.htaccess</B> file to do this.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Save the <B>php.ini</B>
+file. The Apache webserver needs to be restarted (as superuser) so
+that it can take account of the change; on SuSE, this is just:
+<B><FONT FACE="Nimbus Roman No9 L">rcapache restart</FONT></B></P>
+<H2 CLASS="western">Set up the directory structure</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Untar the
+Kartouche download (<B>tar -zxvf kartouche-0.2.tar.gz</B>), and move
+the subdirectories /<B>kartouche</B> and /<B>omnivore</B> into a
+webservable directory on your local machine – you could use
+<I>/usr/local/httpd/htdocs</I> (changed to <I>/srv/www/htdocs</I> on
+SuSE 8.1, and perhaps something like <I>/var/www/html</I> on RedHat),
+but the easiest thing is perhaps just to use <I>~/public_html</I> (eg
+<I>/home/user/public_html</I>), the web-accessible directory in your
+own user-space. This will avoid issues with permissions. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The <B>/kartouche</B>
+directory should look similar to this:</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0 STYLE="page-break-before: auto; page-break-after: auto">
+	<COL WIDTH=11*>
+	<COL WIDTH=9*>
+	<COL WIDTH=57*>
+	<COL WIDTH=179*>
+	<TR VALIGN=TOP>
+		<TD COLSPAN=3 WIDTH=30%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>kartouche</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(main
+			dir)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD COLSPAN=2 WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>gwein
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(administration
+			functions; gweinyddiaeth=administration in Welsh)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=22%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>includes
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(bilingual
+			files for the pages in gwein)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=22%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>kartouche</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(connection
+			details, to be deleted)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD COLSPAN=2 WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>images
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(logos,
+			etc)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=22%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>use
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(screenshots
+			for the user instructions)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD COLSPAN=2 WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>includes
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(bilingual
+			files for the pages in the main dir)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD COLSPAN=2 WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>kartouche
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(connection
+			details, to be moved out of the webtree)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD COLSPAN=2 WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>sql
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(database
+			script) </FONT></FONT>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD COLSPAN=2 WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>trans
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(files
+			holding the “screen furniture” strings in both languages )</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The <B>/omnivore</B>
+directory should look similar to this:</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0 STYLE="page-break-before: auto; page-break-after: auto">
+	<COL WIDTH=11*>
+	<COL WIDTH=66*>
+	<COL WIDTH=179*>
+	<TR VALIGN=TOP>
+		<TD COLSPAN=2 WIDTH=30%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>omnivore</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(main
+			dir)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>images
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(logos,
+			etc)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>includes
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(bilingual
+			files for the pages in the main dir)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>omnivore
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(connection
+			details, to be moved out of the webtree)</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>sql
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(database
+			script) </FONT></FONT>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=4%>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=26%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>trans
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=70%>
+			<P STYLE="font-weight: medium; page-break-after: auto"><FONT FACE="Courier, monospace"><FONT SIZE=2>(files
+			holding the “screen furniture” strings in both languages )</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">As you will
+notice, some files (eg the <B>/trans</B> files) are replicated in
+both trees. This is not ideal, but the main benefit is that Omnivore
+can be run self-standing – in other words, you don't need to
+install Kartouche to have the Omnivore application available.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Create a directory
+called <B>/includes </B>on the same level as your webroot directory,
+eg <B>~/includes</B>. Move the directories <B>/kartouche/kartouche
+</B>and<B> /omnivore/omnivore </B>into the new <B><I>/includes</I></B>
+directory. The main aim of moving the configuration files out of the
+webtree is to prevent your MySQL connection details from being
+accessible via a browser, which is of course a sensible security
+precaution on your website; strictly speaking, you don't need to do
+this on your local machine, but it makes sense to replicate so far as
+possible what will be the setup on your webserver – this means that
+once you have the paths sorted out and working locally, you can be
+fairly sure they will work on the webserver.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">(Delete the
+directory <B>/kartouche/gwein/kartouche</B> – this holds a copy of
+<B>config.php</B>, and is here to allow Kartouche to work without
+needing to set up an <B>/includes</B> directory, if you insist on
+doing this.)</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">In order for PHP
+to find the files in the <B>/includes</B> directory, you will
+probably have to edit your <B>php.ini</B> file again to tell PHP to
+look outside the normal webtree. Go to the Paths and Directories
+section, and adjust the <I>include_path</I> to take account of the
+includes directory you just created; for instance, for a Linux
+server, you would adjust these lines:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>; UNIX: &quot;/path1:/path2&quot;</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>;include_path =
+&quot;.:/php/includes&quot; </FONT></FONT>
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">to read:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>; UNIX: &quot;/path1:/path2&quot;</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>include_path =
+&quot;.:/php/includes:/home/user/includes&quot;</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">where <I>user</I>
+is your username. Remember to uncomment the line and restart Apache.
+If you do not want to, or cannot, change the <B>php.ini</B> file, you
+can achieve the same effect with a <B>.htaccess</B> file (and you
+will probably have to do this for your webserver) – see below.</P>
+<H2 CLASS="western">Create the databases</H2>
+<P>It seems reasonable to assume that your Kartouche database will be
+called <B>kartouche</B>, and your Omnivore database will be called
+<B>omnivore</B> (although you don't have to use these names). In that
+case, assuming MySQL is running, and your MySQL user is root, you can
+create these from the command line by running:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>mysqladmin -uroot -p
+create “kartouche”</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">and</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>mysqladmin -uroot -p
+create “omnivore”</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">and giving your
+password when prompted. (Even though a password may not be strictly
+necessary on a local PC, it is a good habit to get into.) If you are
+already in the MySQL monitor, you can just run:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>create database
+kartouche;</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">and</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>create database
+omnivore;</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">(If you would like
+to use a GUI for this, the best one out there is probably phpMyAdmin
+(<I>www.myphpadmin.net</I>). After installing it and going to the
+index page, put the database name into the <B>Create new database</B>
+box, and click the <B>Create</B> button.)</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Now create the
+tables in the databases. Go to the <B>/kartouche/sql</B> directory
+and run: <B>mysql -uyouruser -p kartouche &lt; kartouche.sql</B>.
+Then go to the <B>/omnivore/sql</B> directory and run: <B>mysql
+-uyouruser -p omnivore &lt; omnivore.sql</B>. Both the <B>/kartouche/sql
+</B>and <B>/omnivore/sql </B>directories can then be deleted.</P>
+<H2 CLASS="western">Database structure</H2>
+<P>This is pretty simple. Kartouche holds each file in a MySQL table
+with the following structure:</P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">CREATE
+TABLE table_name </FONT></FONT></TT>
+</P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">(</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">id
+int(10) unsigned NOT NULL auto_increment,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">comment
+text,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">msgid
+text,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">msgstr
+text,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">suggestion
+text,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">ipaddress
+varchar(20) default NULL,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">suggupd
+timestamp(14) NOT NULL,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">submitter
+varchar(100) default NULL,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">PRIMARY
+KEY (id)</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">)
+</FONT></FONT></TT>
+</P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">TYPE=MyISAM;</FONT></FONT></TT></P>
+<P>These tables are created on the fly by the import procedure. The
+above structure has a couple of added fields compared to the first
+release of Kartouche, so you may have to adjust your existing tables
+accordingly if you want to upgrade.</P>
+<P>The only other table used by Kartouche is the one holding the Hall
+of Fame details, which has the following structure:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>CREATE
+TABLE admin_hallfame </FONT></FONT>
+</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>(</FONT></FONT></P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>id
+int(3) unsigned NOT NULL auto_increment,</FONT></FONT></P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>handle
+varchar(100) default NULL,</FONT></FONT></P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>file
+varchar(50) NOT NULL default '',</FONT></FONT></P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>string
+int(11) NOT NULL default '0',</FONT></FONT></P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>date
+date NOT NULL default '0000-00-00',</FONT></FONT></P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>PRIMARY
+KEY (id)</FONT></FONT></P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>)</FONT></FONT></P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>TYPE=MyISAM;</FONT></FONT></P>
+<P>This table is created manually by running
+<B>/kartouche/sql/kartouche.sql</B>, as noted above. The <B>admin_</B>
+prefix stops the table from appearing in the list of translation
+tables, and this can be used to store other tables in the Kartouche
+database that you don't want to appear – the KGyfieithu site
+version (0.1) of Kartouche stored the Omnivore tables in this way,
+but in this new version these tables have been split off into their
+own database for ease of backup (the main Omnivore table grows
+rapidly, and soon dwarfs all the others, and yet they are the most
+important from the point of view of trying to complete a translation
+project!).</P>
+<P>In Omnivore, there are two tables. The first holds the
+translations (<B>dict</B>), and it also holds information on where
+the string is located (file and entry) and who translated it
+(although the latter two items are not shown on the output pages).
+The second table holds words which have been entered into Omnivore
+searches, but which were not in the translation pool at that time
+(<B>notyetom</B>). Not much is done with this currently, but it could
+be the basis for proactively building a glossary list (although I
+personally tend to think that making a glossary is a displacement
+activity which merely stops you getting on with the real work of
+translation). These tables are created manually by running
+<B>/omnivore/sql/omnivore.sql</B>, as noted above, and have the
+following structure:</P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">CREATE
+TABLE dict </FONT></FONT></TT>
+</P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">(</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">id
+int(10) unsigned NOT NULL auto_increment,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">english
+text NOT NULL,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">welsh
+text NOT NULL,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">source
+varchar(50) NOT NULL default '',</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">source_id
+int(11) NOT NULL default '0',</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">submitter
+varchar(100) NOT NULL default '',</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">PRIMARY
+KEY (id),</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">FULLTEXT
+KEY english (english),</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">FULLTEXT
+KEY welsh (welsh)</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">)
+</FONT></FONT></TT>
+</P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">TYPE=MyISAM
+;</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><BR><BR>
+</P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">CREATE
+TABLE notyetom </FONT></FONT></TT>
+</P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">(</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">id
+int(10) unsigned NOT NULL auto_increment,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">failed
+text,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">date_failed
+timestamp(14) NOT NULL,</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">PRIMARY
+KEY (id)</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">)</FONT></FONT></TT></P>
+<P STYLE="margin-left: 2cm; margin-top: 0.3cm; margin-bottom: 0.2cm"><TT><FONT SIZE=2><FONT FACE="Courier, monospace">TYPE=MyISAM
+;</FONT></FONT></TT></P>
+<H2 CLASS="western">Set up the <SPAN STYLE="font-style: normal">config</SPAN>
+files 
+</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Edit
+<B>~/includes/kartouche/config.php</B> to give the correct user
+details for your local MySQL installation (usually only the username
+and password will need to be changed), and enter the name of your
+Kartouche database (DBNAME) and Omnivore database (OMNAME). Then
+change the WEBURL line to point to the browser address where you can
+find the main Kartouche directory on your local PC: you might use
+something like <I>192.168.0.1/~user/kartouche/</I> if you are using
+IP addresses, or <I>machinename /~user/kartouche/</I> if you are
+using names (remember to append the trailing slash). You can also
+change the RECS_SHOWN line to whatever number of records you want to
+appear on the edit pages – the default is 20.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Make similar
+changes in the <B>/omnivore/config.php</B> file, giving the name of
+the Omnivore database as DBNAME this time.</P>
+<H2 CLASS="western">Localising the pages</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The next step is
+to edit the pages to reflect your own project. (This doesn't need to
+be done immediately at this stage – you might prefer to do it after
+you've satisfied yourself that Kartouche is running OK, and will do
+what you want.) The most important alteration will be chaning the
+target language from the supplied Welsh to the language of your
+choice. The other language is English, but this can also be changed
+to some other language if you wish (eg you could have French and
+Breton, or German and Swabian).</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">To change the page
+furniture (thanks to J Wynia!), edit the files <B>trans_cy.txt</B>
+(Welsh) and, if desired, <B>trans_en.txt</B> (English). These are in
+the trans directory, and consist of a series of name=variable pairs.
+Simply replace the variable in each pair with the desired text in
+your language. Rename the files as necessary, eg in the case of
+German and Swabian you might rename them <B>trans_de.txt</B> and
+<B>trans_sw.txt</B>.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Then edit
+<B>includes/trans.php</B> to replace “en” and “cy” with (for
+example) “de” and “sw”, and edit the pagenames there too.
+Finally, edit the <B>checklg</B> function in <B>fns.php</B> to set
+your two languages to “de” and “sw”.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The longer
+stretches of text on each page are located on “preface” pages
+ending <B>_pref.php</B> in the <B>includes</B> and <B>gwein/includes</B>
+directories. These consist of a PHP switch statement, currently
+referring to “en” and “cy” - change these to (continuing the
+example) “de” and “sw”, and then replace the block of text
+with that in your desired language. Just be careful not to disturb
+anything else (eg the &lt;? or ?&gt; tags) – a colour-coding
+text-editor is very useful here. I found writing these up to be the
+most difficult part, but you only have to do this once, and hey!, you
+can use my beautifully crafted prose as a guide.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Finally, change
+the reference to “en” in the <B>index.php</B> and <B>gwein/index.php</B>
+to refer instead to your primary language. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">This is a bit
+fiddly, but I think that the relatively static nature of these pages
+justifies this approach. It also means that the text for each
+language is available for editing on the same page, so it's easier to
+do. I did consider using text in a database table, but concluded this
+was overkill for what is required here. (Shameless plug – the
+Kyfieithu website runs a similarly bilingual system called LIP
+(Lightweight Internet Portal), but that one <B>is</B> built on
+database entries, since it is designed more for easy and constant
+update. If you're interested in a little portal, it should be
+available for download shortly.) Future versions may streamline this
+setup process a little.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">There is in theory
+no reason why 3 or more languages should not be accommodated in
+Kartouche. All that is required is for additional <B>trans_lg.txt</B>
+pages to be written, and the switch statements expanded to cover text
+in those new languages.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">If you want to add
+more pages, just use the existing ones as a guide – you may have to
+do a little bit of editing here and there to get everything showing
+up the way you want it to, though. If you envisage yourself needing
+to add new material on a regular basis, it is probably best to run
+Kartouche as a subset of a content management system designed for
+this, eg *Nuke, or even LIP (another shameless plug!).</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">You will also need
+to change the Kartouche header functions (<I>replace_comment</I> and
+<I>replace_msgstr</I> in <B>/includes/fns.php</B>) to contain
+whatever text is appropriate to your project, and set the KGyfieithu
+link on the navbars to point to your site's “leading” page.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Now, what happens
+if the fact that Kartouche is open on the Web leads some people of
+low intellect to try to amuse themselves at your expense? That is,
+how do we stop plonkers making a horlicks of the whole thing? It is
+in fact impossible to avoid this utterly, but there are two features
+which seek to minimise this, and the second feature has to be
+localised too. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The first feature
+is that for each suggestion made, the IP address of the person
+submitting it, along with the time and date, is recorded in the
+database. This means that you can (in theory at least) speak to the
+offender's ISP if they persist. (However, if they are clever enough
+to spoof their ISP, this will be no help; on the other hand, if they
+were clever enough to do that, would they be wasting their time
+defacing your webpage? Who knows? Life is strange, and full of
+mysteries ... Keep backups!) 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">There is still the
+annoyance of having to connect to your website as quickly as possible
+so that you can wipe off the offending material. So as a second
+anti-plonker feature, Kartouche contains a rudimentary profanity
+filter (thanks to Hermawan Haryanto!), which replaces the most
+offensive words with ***. To use it, edit the following line in
+<B>config.php</B> to take account of offensive words in your
+language:</P>
+<P STYLE="margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>define(&quot;PROFANITY&quot;,
+“offensive|words|in|your|language”);</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Each word should
+be separated from the others by a pipe character. This filter will
+then catch lower or upper case versions of the offensive words, or a
+mixture of the two. Unfortunately, it is fairly basic, and will also
+bleep out any words in which the offensive word seems to appear (in
+English, for instance, the famous Scunthorpe), so you may need to
+experiment a bit with it.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">You will no doubt
+also want to change the logo (a Welsh logo would not be so useful in
+Swabia ...). The <B>kgyfieithu </B>logo is a <I>.png</I> file of size
+330x50 pixels, so if you create something that size in the GIMP it
+should slot in nicely. You can also get rid of the Kartouche logo if
+you want (although I would really appreciate a mention of Kartouche
+somewhere on your site). 
+</P>
+<H2 CLASS="western">Download the CVS files</H2>
+<P>Now that Kartouche is installed and (I hope) running in your
+source and target languages, you then need to download your project
+files, and the prime exhibit here is the current KDE i18n files from
+CVS. For more information on CVS, see <I>www.cvshome.org</I>, and
+also the book <B>Open-Source Development with CVS - 2<SUP>nd</SUP>
+edition</B> (Karl Fogel and Moshe Bar) [Coriolis]. A pre-requisite to
+this section is that you have CVS installed – it may be included on
+the disks for your individual distro. (A Windows client is also
+available from <I>www.cvshome.org</I>.) The easiest way to get the
+files is to do the following (CVS gurus can correct me here if I am
+wrong):</P>
+<P>Create a directory where you wish the CVS download to be stored,
+eg <B>kde-cvs</B>, and cd to that</P>
+<P>In a console, run:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>export
+CVSROOT=:pserver:anonymous@anoncvs.kde.org:/home/kde</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm">Run:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>echo
+$CVSROOT</FONT></FONT></P>
+<P>to check; it should return:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>:pserver:anonymous@anoncvs.kde.org:/home/kde</FONT></FONT></P>
+<P>Note that setting CVSROOT like this only works for the current
+console session; if you close the console you will lose the setting,
+and you will need to re-export it again when you open a new console. 
+</P>
+<P>Run:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cvs
+login</FONT></FONT></P>
+<P>and just press the <B>Return</B> key when you are asked for a
+password. Disconcertingly, you get no feedback as to what has
+happened – all that you see is the normal console cursor text (and
+you can still navigate around your own machine using cd etc). 
+</P>
+<P>On occasion, the above has not worked, and I have had to enter:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cvs
+-d :pserver:anonymous@anoncvs.kde.org:/home/kde login</FONT></FONT></P>
+<P>so don't be too worried if it doesn't work first time.</P>
+<P>Run:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cvs
+co kde-i18n/templates</FONT></FONT></P>
+<P>This will checkout (co) the templates tree under the i18n group.
+The download should take less than 5 minutes on a 128 Kb line.
+Afterwards, the downloaded <I>.pot</I> files will be in
+<I>[kde-cvs]/kde-i18n/templates</I>.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The above assumes
+that you are downloading fresh templates. If, however, you are
+downloading partly-completed translations for more work, you would
+run:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>cvs co
+kde-i18n/your_two_letter_language_code</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The rest of this
+manual should apply in the same way, except that you will be working
+with <I>.po</I> files rather than <I>.pot</I> files.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Note also that
+doing this will miss a few important little files that are actually
+in the kde-i18n directory itself. Among these, for instance, is
+<B>check_po_files</B> , which will check all your files for basic <I>.po</I>
+conformance, i.e : correct amount of %1-%x tags etc. To download
+these, run:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>cvs co kde-i18n</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">and then press
+<B>Ctrl-C</B> to abort the checkout after the <I>kde-i18n</I>
+directory itself is downloaded (otherwise you start downloading ALL
+the KDE translations in all languages). Unfortunately, I'm not
+entirely sure how to use these little files, which somewhat lessens
+their value – when I find out, I'll note it here!</P>
+<H2 CLASS="western">Import CVS files</H2>
+<P>You now need to import your fresh files into the MySQL database. 
+</P>
+<P>Create your import “directory”. In the original version of
+Kartouche, these were actual directories, but in practice it is much
+handier to make them symlinks – this means that you can plug and
+unplug different sets of <I>.pot</I> files very easily -see below.
+(Windows users may need to stick to actual directories, and just move
+all the templates into a <B>/cvstemplates</B> directory - although
+Win2k and later have something similar to symlinks, IIRC.) 
+</P>
+<P>In <B>/kartouche/gwein</B>, run: 
+</P>
+<P STYLE="margin-left: 2cm; font-weight: medium"><FONT FACE="Courier, monospace"><FONT SIZE=2>ln
+-s /home/user/[kde-cvs]/kde-i18n/subdirectory/templates cvstemplates</FONT></FONT></P>
+<P><B>Cvstemplates</B> is the default import directory name – you
+can change this in the code (the <B>gwein/import.php</B> script –
+see the notes at line 13ff) if you feel the need. You may have to
+adjust the permissions on the downloaded templates directory to 666
+or 777, using <B>chmod</B>. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Go to the the
+Kartouche admin index page with your browser
+(<I>192.168.0.1/~user/kartouche /gwein/</I>), and click the <B>Import</B>
+link in the navbar (if you get an error page, it is likely because
+<I>register_globals</I> on your system is set to “off” - see
+above). Click the <B>Import files in this directory</B> button, and,
+if all is well, your browser will print various messages to screen to
+show its progress. (With large imports, Mozilla valiantly prints them
+in batches, whereas Konqueror seems to wait until the very end.)</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The earlier
+version of this manual suggested importing the whole KDE tree at
+once:</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">&lt;<I>old bit</I>&gt;
+Go back to your <B>php.ini</B> file, and in the Resource Limits
+section, and set the max_execution_time to something a bit bigger
+than the default 30:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>max_execution_time = 300
+; Maximum execution time of each script, in seconds</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">This is because
+PHP will take up to 2 minutes to chew through all those files you
+just downloaded, and unless you raise the max_execution_time the
+import will time out only partway through. Remember to restart
+Apache. Extending the max_execution_time like this may not be
+possible on a hosted webserver, which is why it is a good thing to do
+the import locally, and upload only the finished tables to the
+webserver. &lt;<I>/old bit</I>&gt;</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">You can still do
+this, but in practice I have found that it is a bit pointless. With
+KDE, for instance, you end up with a large pile of <I>.pot</I>
+tables, only a small proportion of which (I recommend 20-30,
+depending on size) can be put on your website at any one time (if you
+put them all on, not only will the table selection pages be too slow,
+but they will crush any enthusiasm that you or your helpers have for
+the translation project, and ruin your morale!). It is much better to
+symlink a more manageable subset of the CVS files (perhaps just one
+directory at the time), and import those (and it is then unlikely
+that you will need to adjust <I>max_execution_time</I>). The more
+manageable resulting database can be more easily pruned of
+non-priority tables before posting them it on the webserver.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">This also provides
+a handy way to plug and unplug different sets of <I>.pot </I>files by
+simply changing the symlinks, and then changing the database name in
+the <B>config.php</B> file. For instance, if you want to switch your
+local system over to translating the <B>fwbar</B> application (which
+is a Welsh version of the well-known <B>foobar</B> utility), all you
+need to do is create a database called <B>fwbar</B>, change the
+<B>config.php</B> file so that DBNAME is set to <B>fwbar</B>, symlink
+the <B>/cvstemplates</B> directory to <B>/fwbar_cvs</B>, and run the
+import. At any point you can switch back to your KDE translations in
+(eg) <B>kartouche</B> just by setting DBNAME to point to that
+instead. When your <B>fwbar</B> translations are complete, export to
+screen, and save the files (or, alternatively, symlink your export
+directory to <B>/exports</B> (see below), and export to file). This
+is especially useful for adding to Omnivore any translated <I>.po</I>
+files that people are kind enough to donate to you (as, for example,
+Dewi Jones and Rhoslyn Prys did for Mozilla, Mandrake and Abiword),
+or that you have come across yourself. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">There may
+occasionally be a slight glitch where tables are created on files
+that should not really be there – for example, you may see a README
+table, and odd files like <B>.cvsignore</B> can end up creating stray
+tables (they are usually noticeable by ending in __) - you can safely
+delete these.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">CVS directories in
+the downloaded directory are ignored, as is the <I>docs</I>
+directory. This is because docs are not usually the first priority of
+a translation team, and they would mean almost as many tables again.
+But you can change this if you like, by going to the <B>get_dir_files</B>
+function near the bottom of <B>includes/fns.php</B> and changing the
+following line:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>if ($file_type == &quot;dir&quot;
+and $file_name != &quot;CVS&quot; and $file_name != &quot;docs&quot;)</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">to</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>if ($file_type == &quot;dir&quot;
+and $file_name != &quot;CVS&quot;)</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">This should work
+OK, but you may also have to fiddle around with it a bit, since the
+docs directories are one level deeper than the <I>.pot</I> file
+directories. A simpler approach in many ways might just be to redo
+the symlink so that <I>cvstemplates</I> points to the <I>docs</I>
+directory. Anyway, I leave this to you as an exercise – please
+report any interesting effects.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The directory path
+of each <I>.pot</I> file is reflected in its table name, with the
+directory (if any) separated from the filename by three underlines:
+___. Thus <B>katepart.pot</B> becomes <B>katepart</B>, and
+<B>kdebase/kate.pot</B> becomes <B>kdebase___kate</B>. Where a hyphen
+occurs in a filename, this is replaced by two underlines:__, since a
+hyphen is not a valid character in a MySQL tablename. Thus
+<B>desktop_kde-i18n</B> becomes <B>desktop_kde__i18n</B>. Obviouly,
+these renamings have to be undone before you commit the translated
+file to CVS.</P>
+<H2 CLASS="western">Setting up the website</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">That completes the
+local setup of Kartouche. The next step is to make it available on
+the Web to your potential translation helpers. To do this you more or
+less replicate what you have done for your local setup.</P>
+<H2 CLASS="western">Which files, and how?</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The essential
+first step here is to select your first batch of files - in my view,
+there should really only be 20-30 files available at any one time. As
+these are completed, take them down and replace them with others.
+KGyfieithu has done this by instituting “sub-projects” to
+translate groups of files, which means you can also announce the
+reaching of a milestone on the translation path. (This is done on the
+KGyfieithu front page, but you could adjust
+<B>/kartouche/includes/userindex_pref.php</B> to do the same thing –
+this is not in the download because different groups may want to link
+Kartouche to different setups.)</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The standard
+“core” for KDE – the files that must be translated before your
+language can be announced as supported by KDE – are the files in
+<B>/kdebase/*.po</B>, <B>/kdelibs/desktop_kdelibs.po</B>,
+/<B>kdelibs/desktop_kde-i18n.po</B> (75% of which must be
+translated), and <B>/kdelibs/kdelibs.po</B> (90% of which must be
+translated) – you should also aim to translate the other <B>desktop_</B>
+files. Altogether, the bare minimum (at time of writing) is around
+8,500 strings, so these should form your first “tranche” (fully
+translating the above files will give nearer 12,000 strings). At an
+average rate of 300 strings per “evening”, this means around 40
+person-evenings of work, but it may take longer if you have no
+standard dictionary for your language, or if it does not cover recent
+technical terms, and you find yourself having to develop these.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">&lt;<I>personal
+view</I>&gt; Translation teams for smaller languages often start out
+by developing a glossary for their language – a list of
+commonly-used technical terms which will be the “canonical text”
+for their translation, and will avoid everyone using different words
+for common things such as “Save”. This is undoubtedly A Good
+Thing, but (as with all Good Things) it has a downside. IMHO, it can
+be a great way to waste your time and energy. First, you can't
+actually know which terms need to be decided on in advance, because
+you haven't actually done any translating yet – duh! (Yes, if you
+use a computer every day, you can guess at the most needed terms, and
+enjoin the use of specific terms in a couple of places where you do
+NOT want mistranslations, but that's about all.) Secondly, you can
+end up having long abstruse discussions about individual words (which
+almost always come down to wider issues such as registers, idiolects,
+etc – and can even have political nuances – and almost certainly
+can never be definitively resolved) – the time would actually be
+better spent translating some strings and getting some real work
+done. Thirdly, no-one will ever take any notice of the terms you have
+so lovingly crafted unless they actually in front of someone's
+eyeballs on a computer screen, in an actual application – without
+this, you're just producing vaporware. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Not everyone will
+agree with me, but I think there's a lot to be said for sorting out a
+few “under-no-circumstances” translations, and then just getting
+on with it. Different people may use different terms; some will
+prefer more formal constructions, and others colloquial turns of
+phrase; there may be subdialectal differences; some people may just
+transliterate English terms, others may prefer to extend the
+established meaning of a word indigenous to the language. None of
+this really matters, in my view. It is more important to bank
+translations, because it is much easier to revise a file later than
+to start one from scratch. And a file in need of revision is still
+one that will get the language concerned onto the screen in front of
+a user. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">About the biggest
+argument I can see against this is that the resulting “user
+experience” will be uneven, and lacking in the requisite <I>gravitas</I>
+to convince people to switch over to using their own language instead
+of English. IMHO, this is a red herring, because it does not actually
+take into account the key features of free software. First, the
+translation of any free software project is never-ending, because the
+project itself is (hopefully) developing – the philosophy is
+“revise constantly, release often”, and translations can never in
+fact be static; they will always reflect an earlier version of the
+app. If so, this might as well be turned to advantage, with the
+promise of ongoing revisions to refine the translation, just as
+ongoing code revisions will refine the interface. Indeed, feedback
+from actual users could help the refinement process, but you can't
+get feedback until you have something on screen to prompt it! Second,
+the range of software the average user might use is substantial, and
+the translation effort involved in it is substantial; trying to do
+strict quality control at too early a stage will mean that the amount
+of translated software available will be less, and therefore that
+users will get more used to an English (or whatever) interface, and
+may be less willing to accept the translated one. It is better, in my
+view, as with most free software, to aim for high availability, with
+something that will do the job, perhaps not ideally but passably,
+until it can be improved. Thirdly, it is likely that the earliest
+users of the interface will be those who are most committed to using
+the language in all spheres of life. Not only will they be likely to
+give feedback, but they will probably be readier than the average
+user to accept initial shortcomings in the translation as the
+necessary price of having it in the first place. With many smaller
+languages, there is simply no option to have a computing interface in
+anything but free software, and individuals have to decide for
+themselves whether they want to have half a loaf, or no bread – in
+this, as in many other cases the best may be the enemy of the good.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">So I would aim at
+a “consensual” approach. If the translation co-ordinator sweeps
+completed strings into Omnivore regularly, that will start to build
+up a corpus of material that can be reviewed by other translators,
+and drawn on or amended as necessary. This would also give focus to
+any discussions on the translation project's mailing-lists, or with
+initial users. At a suitable point, a decision could and should be
+made to go over completed strings and update them in the light of any
+emerging consensus on terms. But the key thing is that this will be
+done on a body of work that is already in existence, and not in
+isolation from that. &lt;/<I>personal view</I>&gt;</P>
+<H2 CLASS="western" STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Upload
+the db tables</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Once you have
+selected the tables for your first tranche of translations, you need
+to dump these to a textfile that you can upload to your webserver.
+Using the <I>mysql</I> client, you can run:</P>
+<P STYLE="margin-left: 2cm; margin-top: 0.3cm; margin-bottom: 0.2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>mysql
+-uroot -p kartouche tablename1 tablename2 &gt; core.sql</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">and enter your
+password when prompted, to dump the tables <B>tablename1</B> and
+<B>tablename2</B> from the <B>kartouche</B> database into a text file
+named <B>core.sql</B>. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">If you are using
+<I>phpMyAdmin</I>, click the <B>Export</B> tab on the <B>kartouche</B>
+database homepage. Hold down the Ctrl key, and click on each required
+table in the listbox. Ensure that <B>Structure and data</B> is
+ticked, and then tick the <B>Save as file</B> checkbox. When you
+click the <B>Go</B> button you will be asked where to save this dump.
+Give it a name (<B>core.sql</B>), and save it.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Navigate to the
+save location, and open <B>core.sql</B> with a text editor – you
+should see lines creating each of the tables, you have selected, and
+further lines detailing the contents of the table. For example, for
+<B>kabc_net</B>:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>CREATE TABLE kabc_net (</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>id int(10) unsigned NOT
+NULL auto_increment,</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>comment text,</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>msgid text,</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>msgstr text,</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>suggestion text,</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>ipaddress varchar(20)
+default NULL,</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>suggupd timestamp(14)
+NOT NULL,</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>PRIMARY KEY (id)</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>) TYPE=MyISAM;</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>.....</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>INSERT INTO kabc_net
+VALUES (2, '#: resourcenet.cpp:112', 'Unable to open file \'%1\' for
+reading', '', NULL, NULL, 20030217121624);</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>INSERT INTO kabc_net
+VALUES (3, '#: resourcenet.cpp:121', 'Unable to open url \'%1\' for
+reading', '', NULL, NULL, 20030217121624);</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>.....</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">You can now upload
+the dump file to your webserver. Webhosts differ substantially on how
+easy they make it for you to work with MySQL, so I can't give any
+hard and fast guidance here – YMMV. 
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">On your webserver
+create a database called <B>kartouche</B>, using either SSH (or
+telnet, if you like living dangerously), or some functionality in the
+webhost's control panel (note that many virtual hosting environments
+will add some sort of prefix based on your username to the databases
+created). The commands given earlier for MySQL in creating a local
+database:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>mysqladmin -uroot -p
+create “kartouche”</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">or (if you are
+logged into MySQL):</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>create database
+kartouche;</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">should also work
+via SSH, but you may need to be aware of the prefix thing. You may
+also want to set up a separate MySQL user and password for the
+<B>kartouche</B> database, and this may be easier to do via your
+webhost's interface. If you want to do this via SSH, review the MySQL
+resources mentioned earlier in order to see how to accomplish this.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">You then need to
+import the database dump file (<B>core.sql</B>) that you uploaded.
+Using SSH, you need first of all to upload the file to your server.
+Then you would run something like: 
+</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>mysql -uusername -p
+kartouche &lt; path/to/core.sql</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">and enter your
+password when prompted.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">If <I>phpMyAdmin</I>
+is installed on your webhost (or you can install it yourself – but
+remember to protect access to its directory!), you do not need to
+upload first – it will load the file from your local PC. To do
+this, you would click on the <B>kartouche</B> database in the
+left-hand pane to load its front page, and then on the <B>Export</B>
+tab. Click on the <B>Browse</B> button and navigate to wherever you
+saved <B>core.sql</B>. Then click on the <B>Go</B> button.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">This should leave
+you with a populated database on the webserver. 
+</P>
+<H2 CLASS="western">Upload and configure Kartouche</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">This basically
+consists of replicating the things you did for the local install.
+Uplaod the files to a directory in your webtree (eg <B>/kartouche </B>and<B>
+/omnivore</B>). Create an <B>includes</B> directory outside the
+webtree, and move the /kartouche/kartouche and <B>/omnivore/omnivore</B>
+directories to that – remember, this is to make your database a bit
+more secure. Edit the <B>config.php</B> files to reflect your
+webserver database setup.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">As regards PHP
+settings, it is unlikely that you will be able to edit your webhost's
+<B>php.ini</B> file – you therfore need to use the <B>.htaccess</B>
+alternative. Create a file called <B>.htaccess</B> in your
+webserver's main Kartouche directory and put the following line in
+it:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>php_value include_path
+&quot;.:../../includes&quot;</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">This would apply
+if your includes directory was a sister directory of your webtree
+root, and the kartouche directory was a daughter of the webtree root.
+If the locations are different, adjust the line accordingly.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">I waver between
+relative (<B>../</B>) and absolute (<B>/home/virtusers/user/</B>)
+addresses depending on the day of the week. With the former I always
+get mixed up about what level I'm on (so don't take my word for it!),
+but with the latter you run the risk of everything stopping working
+if your webhoster decides to change <B>/home</B> to <B>/home2</B>
+because they have installed a new hard-drive on the server (as one of
+my hosts did once).</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">You also need to
+check whether your webhost's PHP installation is running with
+<I>magic_quotes</I> enabled. The easiest way to test whether
+magic_quotes is running on your website's installation of PHP is move
+the script <B>/utils/magic_quotes.php</B> in the Kartouche download's
+<I>extra</I> directory to your webserver, and access it via a
+browser. It is highly likely that you will need to turn
+<I>magic_quotes_gpc</I> off, and if you do, just add the following
+additional line to your <B>.htaccess </B>file:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>php_flag
+magic_quotes_gpc off</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">so that it now
+reads:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>php_value include_path
+&quot;.:../../includes&quot;</FONT></FONT></P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>php_flag
+magic_quotes_gpc off</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">It is unlikely
+that you will need to adjust register_globals, since most webhosts
+have it set to “on”, but if you do, you can add another line: 
+</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>php_flag
+register_globals on</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Remember that the
+webserver's <B>kartouche/gwein</B> directories are a level down from
+the main directory, so they need an additional includes level in
+their <B>.htaccess</B> files:</P>
+<P STYLE="margin-left: 2cm; margin-bottom: 0cm; font-weight: medium; page-break-before: auto; page-break-after: auto">
+<FONT FACE="Courier, monospace"><FONT SIZE=2>php_value include_path
+&quot;.:../../../includes&quot;</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">You should now
+have a working site. I hope :-) If not, go back through this manual
+and double-check what you have done. After that, email me on
+<I>kyfieithu@dotmon.com</I>.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">However, there is
+one final thing to be done. The <B>/kartouche/gwein</B> (admin)
+directory needs to be protected via Apache's HTTP Authentication.
+Your webhoster may offer a simple way of doing this through a control
+panel, or you can do it using SSH to gain shell access. There are
+various howtos on the Net about what you need to do. 
+</P>
+<H2 CLASS="western">Upload and configure Omnivore</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">I won't go through
+what should now be obvious, but I should point out that you need to
+insert the appropriate web address in the Mozilla sidebar script (at
+<I>window.sidebar.addPanel</I>) if you want to offer Omnivore as a
+Mozilla sidebar – I don't really see why you wouldn't.</P>
+<H2 CLASS="western">Dealing with translation input</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">To make it easier
+to keep track of any suggested translations people add to your site,
+you can be notified by email of what has been changed. To enable
+this, change the dummy email address “your_email@address” in
+<B>make_sugg.php</B> to the email address of the co-ordinator, or
+whoever is going to do the donkey-work of checking and accepting the
+suggested translations, and uncomment the lines in that section.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">The Kartouche user
+interface is fairly self-explanatory, and more details are available
+under the <B>Usage</B> and <B>Remember!</B> links in the navbar. On
+the admin side, the most important page is <B>adm_acc_sugg.php</B>,
+where the translation co-ordinator can edit submitted suggestions,
+and then transfer them into the translation column. You can do this
+in batches of 20 (which is governed by the RECS_SHOWN setting in
+<B>config.php</B>.) You can also delete the suggestion entirely (eg
+if someone has filled it with rubbish). To add suggestions yourself,
+you can either use these boxes, or you can hop into userland
+temporarily and use the form there – the latter method is to be
+used if you want your name entered in the Hall of Fame; adding
+suggestions from the admin pages does not allow you to do this. On
+the other hand, entering suggestions in userland means you have to
+enter them, submit them, and then open the same suggestions again in
+the admin pages, and accept them. I'm too lazy to do that!</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">One important
+point to note is that the Delete radio button refers only to the
+suggestions. If you want to delete a translation (msgstr) that was
+accepted earlier, it would be tempting to use the Accept radio button
+to copy an empty box over the msgstr. This will work, but it will
+upset the Hall of Fame figures – the original suggestion has a
+submitter's name attached, and Accept copies this into the Hall of
+Fame when the suggestion is accepted; accepting an empty suggestion
+will copy them again, so the submitter will have two credits for a
+blank msgstr! Why is the name not deleted from the file when the
+first Accept is made?, you might ask. Good question – I'm sure I
+had a good reason, but I've forgotten what it was, so I may look
+again at this in future versions. In the meantime, if you need to
+delete a msgstr, use the <I>mysql</I> client to run something like:</P>
+<P STYLE="margin-left: 2cm; margin-top: 0.3cm; margin-bottom: 0.2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>delete
+msgstr from tablename where id=xx</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">In cases where you
+need to block insert suggestions (perhaps because you want a quick
+copy for backup or handing-on), I would suggest making a backup of
+the table concerned, and then running on that something like:</P>
+<P STYLE="margin-left: 2cm; margin-top: 0.3cm; margin-bottom: 0.2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>update
+tablename set msgstr=suggestion where suggestion != '' and where
+msgstr = ''</FONT></FONT></P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">(those are two
+single quotes). This should shift the suggestions into the msgstr
+field when the suggestion contains something, but the msgstr doesn't
+(you don't want to overwrite existing translations without checking
+what they're being overwritten with :-)</P>
+<H2 CLASS="western">Export the tables to .po files</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Once you are in
+the happy position of seeing that a table is complete, you can use
+phpMyAdmin or the MySQL monitor over SSH to dump it to a textfile,
+and then download it. On your local machine, load it into your local
+Kartouche database in much the same way as you loaded <B>core.sql</B>
+(see p12) into the webserver database. Then point your browser at
+your local copy of Kartouche, and click <B>Export</B> in the admin
+section to select that table for export to a <I>.po</I> file. Note
+that you will probably have to set the permissions on the export
+directory to 777, and/or change the owner to the webserver.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">An easier way to
+do this with version 0.2 is to use the new “export to screen”
+function – anybody, even users, can get a text export of the file
+just by clicking the icon on the fiel selection page. This only
+contains the comments, msgids and msgstrs, since that is what the <I>.po</I>
+file should contain. Simply save the browser screen to a text file,
+open that in a text editor, do a Find and Replace to change “&lt;br&gt;”
+to nothing, and save it as a <I>.po</I> file. You can then do final
+checking, tidying-up, etc on that. I'm not sure yet how this will
+work for files like Evolution, with 6,000+ strings, but it is a lot
+eaiser to use than the export to disk method, and also allows anyone
+to get a copy of the file whenever they want. It could be used as the
+basis for allowing people to take copies off your translation
+webserver and work on them offline, without having to go directly to
+the target project's CVS and mess with that. 
+</P>
+<H2 CLASS="western">Upload the translated file to CVS</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Once you have the
+<I>.po</I> file, you can then upload it to KDE.</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">(Note: This
+section of the manual will be expanded shortly – check the
+KGyfieithu website for the update.)</P>
+<H2 CLASS="western"><BR><BR>
+</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">That's all for now
+...... except ....</P>
+<H2 CLASS="western">The Kartouche logo</H2>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm">Just in case
+you're interested, the Kartouche logo is based on the Egyptian
+hieroglyphic <B>cartouche</B>, an oval encircling proper names. The
+Horus eye symbol comes from the Meroitic version of hieroglyphics,
+when common signs had been turned into an alphabet-type system. The
+precursor of the Horus eye in Egyptian was pronounced <B>ptr</B>, and
+meant &quot;observe, view&quot;. Thanks to Reinhold Kainhofer for the
+font symbol!</P>
+<HR>
+<H1 CLASS="western">Appendix 1</H1>
+<H2 CLASS="western">Setting up your PC to use UTF-8</H2>
+<P>The following is fairly SuSE-centric, but with nods to other
+distros when I know a bit about them. Contributions welcome! What
+follows also assumes that you are trying to set up Welsh (cy=Cymraeg)
+on your PC, but it could of course be any other language. 
+</P>
+<P>The <B>cy</B> locale may not be available on a default install. If
+not, install (on SuSE 8.2) the package <B>glibc-i18ndata</B> to get
+the source charmaps and locales, and then run (as root):</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>localedef
+-i cy_GB -f UTF-8 cy_GB.utf8</FONT></FONT></P>
+<P>This creates a new <B>cy_GB.utf8</B> locale (Cymraeg, located in
+Great Britain, using the UTF-8 encoding). Running:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>locale
+-a</FONT></FONT></P>
+<P>will then list:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB</FONT></FONT></P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.iso885914</FONT></FONT></P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.utf8</FONT></FONT></P>
+<P>among the possible locales, and cy has its own folder in
+<B>/usr/share/locale</B>. So the only thing that is necessary is to
+set the LANG variable to <B>cy</B> - see below. (If you are using a
+distro other than SuSE, and things don't seem to be working, check
+that you have a <B>cy</B> locale available, and if it is not there,
+install the relevant locales package for your distro.)</P>
+<P>Further information on locales on SuSE 8.2:</P>
+<P STYLE="margin-left: 2cm"><B>/opt/gnome/share/locale/cy/LC_MESSAGES</B>
+stores Gnome .mo files</P>
+<P STYLE="margin-left: 2cm"><B>/opt/gnome2/share/locale/cy/LC_MESSAGES</B>
+stores Gnome2 .mo files</P>
+<P STYLE="margin-left: 2cm"><B>/opt/kde3/share/locale/cy/LC_MESSAGES</B>
+stores KDE .mo files</P>
+<P STYLE="margin-left: 2cm"><B>/usr/share/locale/cy/LC_MESSAGES</B>
+stores other X .mo files</P>
+<P STYLE="margin-left: 2cm"><B>/usr/lib/gconv</B> stores the prebuilt
+locale encodings</P>
+<P>As noted above, if for some reason you have to rebuild the
+locales, the package to install to get the source charmaps and
+locales is called <B>glibc-i18ndata</B>, and they are now installed
+to <B>/usr/share/i18n</B>, with only a locale-archive file now
+located in <B>/usr/lib/locale</B> (in SuSE 8.0 they were all
+installed in <B>/usr/lib/locale</B>).</P>
+<P>The usual encoding for English is ISO-8859-1, and that may be what
+was installed as default on your PC. You can check the current
+encoding by running:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>locale
+charmap</FONT></FONT></P>
+<P>and get a list of available encodings by running:</P>
+<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>locale
+-m</FONT></FONT></P>
+<P>The ISO-8859-1 encoding cannot represent all the accented letters
+even in European languages (w/y with the circumflex is a case in
+point in Welsh), and fails completely for non-European languages. The
+IT world is therefore moving towards the use of Unicode (UTF-8)
+encoding, which allows all letters in all languages to be encoded
+properly. It therefore makes sense to set your machine's encoding to
+UTF-8 at the same time as you set the locale to Welsh. (Support for
+UTF-8 is, however, still patchy, and you may come across instances
+where applications refuse to work with UTF-8.) When you set your
+locale and encoding to <B>cy_GB.UTF-8</B>, the computer will
+recognise and handle all the required characters, but you also need
+to ensure that XFree86 knows about the new encoding. Otherwise, when
+you enter a character, XFree86 will default to ASCII, and although
+the codes of the accented letters are sent from the keyboard, XFree86
+will ignore them unless they happen to be in the ASCII table. You
+therefore need to ensure that the file
+<B>/usr/X11R6/lib/X11/locale/locale.dir</B> contains a line of the
+form:</P>
+<TABLE WIDTH=950 BORDER=0 CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=467>
+	<COL WIDTH=467>
+	<THEAD>
+		<TR VALIGN=TOP>
+			<TD WIDTH=467>
+				<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>en_US.UTF-8/XLC_LOCALE</FONT></FONT></P>
+			</TD>
+			<TD WIDTH=467>
+				<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.UTF-8</FONT></FONT></P>
+			</TD>
+		</TR>
+	</THEAD>
+</TABLE>
+<P>This maps the locale name <B>cy_GB.UTF-8</B> to the locale
+database filename in <B>/usr/X11R6/lib/X11/locale</B>, in this case
+<B>en_US.UTF-8</B>, which is a default file for all locales wishing
+to use UTF-8 - XFree86 will then recognise what the keyboard sends.
+This is already done by default in SuSE 8.2, where
+<B>/usr/X11R6/lib/X11/locale/locale.dir</B> contains:</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>
+	<COL WIDTH=128*>
+	<COL WIDTH=128*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>iso8859-1/XLC_LOCALE</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-1</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>iso8859-14/XLC_LOCALE</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-14</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>iso8859-15/XLC_LOCALE</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-15</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>en_US.UTF-8/XLC_LOCALE</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.UTF-8</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P>If you are using another distro, you need to check the files you
+have available, and create the line if necessary in <B>locale.dir</B>
+- the file path in the left-hand column needs to exist in
+<B>/usr/X11R6/lib/X11/locale/</B>, and the locale name in the
+right-hand column needs to match your LC_CTYPE value - see below.
+(Thanks to Pablo on the Mandrake Cooker list for his posting on this:
+http://www.mail-archive.com/cooker@linux-mandrake.com/msg106224.html.</P>
+<P>If the relevant files, locales and encodings seem to be all
+correct and accounted for, all that needs to be done is to set the
+LANG variable. In SuSE, this can be done through a GUI. Run the YaST2
+Control Centre -&gt; System -&gt; Editor for /etc/sysconfig Files.
+Click the plus beside System, then the plus beside Environment, then
+the plus beside Language. Click on RC_LANG. In the entry field
+Setting of: RC_LANG delete whatever is there (probably
+<B>en_GB.ISO-8859-1</B>), and enter <B>cy_GB.UTF-8</B>. Click Finish.
+Alternatively, you can hand-edit <B>/etc/sysconfig/language</B>.
+Other distros will have similar options. On the SuSE setup, the LANG
+variable is called RC-LANG for system housekeeping purposes, and by
+default it is the only one that needs to be set, since it will be
+used if none of the other variables (LC_CTYPE, LC_NUMERIC, LC_TIME,
+etc) are specified. Other systems will probably be similar - read
+your docs, or ask on the Web if you are not sure. One important point
+to note is that you must enter the LANG variable in whatever form
+your system is expecting it. For example, I believe Red Hat uses the
+form <B>cy_GB.utf8</B>, but this will NOT work with SuSE (unless you
+go and edit all the files mentioned above, which seems a bit
+perverse) - SuSE is set up to use the form <B>cy_GB-UTF-8</B>. If you
+use <B>.utf8</B> instead of <B>.UTF-8</B>, you will get messages
+saying &quot;locales not supported on X server&quot;. You do not
+necessarily have to enter the full <B>cy_GB-UTF-8 </B>- you could use
+an alias. These are set up in the file
+<B>/usr/X11R6/lib/X11/locale/locale.alias</B>, which by default on
+SuSE 8.2 contains the lines:</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>
+	<COL WIDTH=128*>
+	<COL WIDTH=128*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-1</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB
+			</FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-1</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.iso88591</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-1</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO-8859-1</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-1</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.iso885914</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-14</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO-8859-14</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-14</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.iso885915</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-15</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO-8859-15</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-15</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB@euro</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.ISO8859-15</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P>So you could edit the first line to read:</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>
+	<COL WIDTH=128*>
+	<COL WIDTH=128*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P STYLE="margin-left: 2cm"><FONT FACE="Courier, monospace"><FONT SIZE=2>cy_GB.UTF-8</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P>and just enter <B>cy</B> for the LANG variable.</P>
+<P><BR><BR>
+</P>
+<P STYLE="margin-top: 0.3cm; margin-bottom: 0.2cm"><BR><BR>
+</P>
+</BODY>
+</HTML>

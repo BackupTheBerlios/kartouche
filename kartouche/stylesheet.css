@@ -1,0 +1,225 @@
+body
+        {
+        margin: 0px;
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        font-size: 10pt;
+        scrollbar-track-color:#ffccff;
+        scrollbar-arrow-color:#ffccff;
+        scrollbar-face-color:#cc99ff;
+        scrollbar-highlight-color:#ffccff;
+        scrollbar-darkshadow-color:#cc99ff;
+        background-image: url(images/bg.gif);
+        }
+
+table
+        {
+        width: 100%;
+        margin: 0px;
+        }
+
+table td
+        {
+        padding: 0px;
+        border-width: 0px;
+        vertical-align: top:
+        }
+
+td#logo
+        {
+        background: transparent url(images/kyf3.png) left top no-repeat;
+        width: 350px;
+        height: 50px;
+        }
+
+td#advert
+        {
+        text-align: left;
+        }
+
+tr td#sections
+        {
+        background: #cc99ff;
+        font: bold 115% Verdana,Arial,Helvetica,sans-serif;
+        padding-left: 8px;
+        }
+
+tr td#sections a:link /*hyperlink in navbar*/
+        {
+        color: #990033;
+        }
+
+tr td#sections a:visited
+        {
+        color: #990033;
+        }
+
+tr td#sections a:hover
+        {
+        background-color: #ffccff;
+        color: #990033
+        }
+
+div.content
+        {
+        width: 80%;
+        background: #ffccff;
+        color: #990033;
+        border-right: 1px dotted #990033;
+        border-bottom: 1px solid #990033;
+        padding: 20px;
+        }
+
+div.content td
+        {
+        color: #990033;
+        }
+
+div.content h1
+        {
+        font: bold 140% Verdana,Arial,Helvetica,sans-serif;
+        color: #990033;
+        border-bottom: 1px solid #990033;
+        padding: 8px 0px 2px 0px;
+        }
+
+td#text
+        {
+        padding: 30px;
+        }
+
+td#crumbs
+        {
+        font: 100% Verdana,Arial,Helvetica,sans-serif;
+        border-top: 1px solid #990033;
+        border-bottom: 1px dotted #990033;
+        padding: 5px 0px 5px 0px;
+        }
+
+td#spaced
+        {
+        padding-bottom: 15px;
+        }
+
+div.data
+        {
+        text-align: right;
+        }
+
+div.shell
+        {
+        background: #ffffcc;
+        font: 100% Courier;
+        padding: 8px;
+        }
+
+h3 /*for standard headings*/
+        {
+        font: bold 120% Verdana,Arial,Helvetica,sans-serif;
+        color: #990033;
+        }
+
+li
+        {
+        padding-bottom: 10px;
+        }
+
+a
+        {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        color: #990033;
+        text-decoration: none;
+        }
+
+a#listing
+        {
+        font: bold 120% Verdana,Arial,Helvetica,sans-serif;
+        }
+
+a:link
+        {
+        color: #990033;
+        border: solid #cc99ff 1px;
+        }
+
+a:visited
+        {
+        color: #990033;
+        border: solid #cc99ff 1px;
+        }
+
+a:hover
+        {
+        color: #990033;
+        background-color: #cc99ff;
+        }
+
+td#footer
+        {
+        font: 90% Verdana, Arial, Helvetica, sans-serif;
+        color: #990033;
+        padding-top: 20px;
+        }
+
+div.form
+        {
+        color: #cc99ff;
+        border-bottom: 1px solid #990033;
+        padding: 20px;
+        font: 100% Verdana, Arial, Helvetica, sans-serif;
+        }
+
+div.oldform
+        {
+        width: 80%;
+        background: #ffccff;
+        color: #cc99ff;
+        border-right: 1px dotted #990033;
+        border-bottom: 1px solid #990033;
+        padding: 20px;
+        font: 100% Verdana, Arial, Helvetica, sans-serif;
+        }
+
+div.form input
+        {
+        font: 100% Verdana, Arial, Helvetica, sans-serif;
+        color: #990033;
+        }
+
+div.form td
+        {
+        color: #cc99ff;
+        }
+
+div.form td#side
+        {
+        font-weight: bold;
+        vertical-align: top;
+        text-align: right;
+        width: 150px
+        }
+
+div.form textarea
+        {
+        font: 100% Verdana, Arial, Helvetica, sans-serif;
+        color: #990033;
+        }
+
+div.form select
+        {
+        font: 100% Verdana, Arial, Helvetica, sans-serif;
+        color: #990033;
+        }
+
+div.warning
+		{
+		color: #ff0000;
+		border: 1px solid #ff0000;
+		}
+
+div.submit
+        {
+        font: 100% Verdana, Arial, Helvetica, sans-serif;
+        color: #990033;
+        text-align: right;
+        padding-top: 10px;
+        }

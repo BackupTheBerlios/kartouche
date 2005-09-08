@@ -1,0 +1,141 @@
+##Translation file for Welsh (cy)
+
+##navbar.php
+main=KGyfieithu
+subproj=Eich Cywaith Cyfieithu
+home=Rhagair
+remember=Cofiwch!
+use=Defnydd
+sel_file=Dechrau cyfieithu!
+fame=Neuadd yr Enwogion
+change_lg=Newid i Saesneg
+
+##remember.php
+notes=Nodiadau am gyfieithu
+
+##get_tables.php
+filename=Enw'r ffeil
+total_str=Cynnwys
+percent_tr= Cyfieithir
+
+##gwein/adm_get_tables.php
+sugg_no=Awgrymiadau
+all_view=Gweld y cofnodion i gyd ("popeth")
+empty_view=Gweld cofnodion sydd heb eu cyfieithu eto ("gwag")
+sugg_view=Gweld cofnodion lle cynigwyd awgrymiadau ("awgrymiadau")
+done_view=Gweld cofnodion sydd wedi cael eu cyfieithu yn barod ("drosodd")
+curr_view=Eich golygfa am y tablau isod yw
+change_view=Newid golygfa
+all=popeth
+empty=gwag
+sugg=awgrymiadau
+done=drosodd
+
+##editpot.php
+nextlot=Tudalen nesaf
+prevlot=Tudalen o'r blaen
+gothere=Eitem benodol
+show_rec=Dangos eitemau
+out_of=allan o
+in=yn
+ipaddr=Rydym yn cofnodi eich cyfeiriad IP:
+submit=Argymell awgrymiadau
+hallfame1=Rhowch eich ffugenw yma os ydych eisiau bod yn
+hallfame2=Neuadd yr Enwogion:
+orig_text=Testun gwreiddiol
+curr_trans=Cyfieithiad ar hyn o bryd
+sugg_trans=Cyfieithiad awgrymiedig
+alt_int=Rhyngwyneb arall: cliciwch
+
+##editpot_alternative.php
+classic_int=Rhyngwyneb clasurol: cliciwch
+click_here=yma
+alt_orig_text=Testun gwreiddiol:
+alt_curr_trans=Cyfieithiad cyfredol:
+alt_sugg_trans=Eich cyfieithiad awgrymiedig (gwiriwch y blwch gwirio ar y dde i gadarnhau):
+alt_input_trans=Awgrymwyd y cyfieithiad dilynnol:
+
+##gwein/navbar.php
+adm_main=Kyfieithu
+adm_home=Gweinyddiaeth
+adm_sel_file=Ychwanegu awgrymiadau
+adm_acc_file=Derbyn awgrymiadau
+adm_export=Allforio
+adm_import=Mewnforio
+
+##gwein/edit_sugg.php
+transfer=Trosglwyddo awgrymiadau
+accept=Derbyn
+delete=Dileu
+
+##gwein/sel_exp.php
+export=Allforio'r ffeiliau dewisedig
+
+##gwein/sel_imp.php
+import=Mewnforio ffeiliau yn y cyfeiriadur hwn
+file_path=Llwybr i'r ffeiliau:
+
+##gwein/import.php
+create_msg=Creuwyd y tabl newydd
+import_msg=Dechrau mewnforio i mewn i'r tabl
+read_msg=Arhoswch - darllen llinellau yn
+success_msg=wedi ei mewnforio yn llwyddiannus!
+
+##gwein/export.php
+export_msg=wedi ei allforio yn llwyddiannus!
+
+##hallfame.php
+nick=Cyfrannwr
+total_acc=Cyfanswm
+files=Ffeiliau
+per_file=Gan ffeil
+strings=Llinynnau
+unspec=amhenodol
+cont_rec=Y cyfanswm o gyfraniadau a gofnodwyd yw:
+sub_total=Is-gyfanswm
+
+##file_contrib.php
+file=Ffeil
+
+##omnivore/index.php
+omnivore=Hollysydd
+welcome_e=Croeso i Hollysydd <br>(yn cnoi Saesneg, yn poeri allan Cymraeg)
+welcome_w=Croeso i Hollysydd <br>(yn cnoi Cymraeg, yn poeri allan Saesneg)
+change_dir=Newid yr iaith yr wyf yn ei bwyta
+wordin=Bwydwch air imi (mewn llythrennau bach)
+chew=Cnoi arno ...
+notyetom=Sori - nid ydy Hollysydd wedi treulio'r gair yno eto, ond rwan mae o ar y bwydlen ...
+missing_words=Geiriau ar goll
+
+##gwein/sel_sweep.php
+sweep=Ysgubo'r cyfieithiadau yma i mewn
+adm_sweep=Bwydo Hollysydd
+
+##failed_om.php
+missing=Term absennol
+failed_srch=Nifer y chwiliadau
+
+##Gwallau Kartouche
+kerr1=Gwall Kartouche:<br> Methu dewis y cofnodion o'r tabl
+kerr2=Gwall Kartouche:<br> Ymddengys nad oes cofnodion o'r math yna yn y tabl
+kerr3=Gwall Kartouche:<br> Methu gwneud y diweddariadau awgrymiad
+kerr4=Gwall Kartouche:<br> Methu nôl enw'r mewnosodwr
+kerr5=Gwall Kartouche:<br> Methu mewnosod enw'r mewnosodwr yn Neuadd yr Enwogion
+kerr6=Gwall Kartouche:<br> Methu dileu'r awgrymiad
+kerr7=Gwall Kartouche:<br> Nid ydych wedi penderfynu beth i'w wneud efo'r cofnodion yma. <br> Gwthiwch y botwm Yn Ôl yn eich porydd a ceisiwch eto.
+kerr8=Gwall Kartouche:<br> Methu rhestru'r enwau tabl
+kerr9=Gwall Kartouche:<br> Methu dewis y rhif cyfanswm
+kerr10=Gwall Kartouche:<br> Methu dewis y rhif heb eu cyfieithu
+kerr11=Gwall Kartouche:<br> Methu dewis y rhif awgrymiadau
+kerr12=Gwall Kartouche:<br> Methu dewis yr enwau ffeil a'r cyfansymiau
+kerr13=Gwall Kartouche:<br> Methu dewis y cyfrannwyr a'r cyfansymiau
+kerr14=Gwall Kartouche:<br> Methu dewis y llinynnau
+kerr15=Gwall Kartouche:<br> Methu nôl y cyfanswm o gofnodion yn Hollysydd
+kerr16=Gwall Kartouche:<br> Methu gwneud y chwiliad gair
+kerr17=Gwall Kartouche:<br> Methu mewnosod y gair oedd ar goll
+
+
+
+
+
+

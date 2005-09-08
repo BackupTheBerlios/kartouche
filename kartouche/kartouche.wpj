@@ -1,0 +1,127 @@
+<!DOCTYPE webproject>
+<webproject>
+ <project version="3.0" name="kartouche" >
+  <item name="editpot.php" />
+  <item name="get_tables.php" />
+  <folder name="images" >
+   <item name="kartouche.png" />
+   <item name="kartouche.xcf" />
+   <item name="kartouche2.png" />
+   <item name="bg.gif" />
+  </folder>
+  <folder name="dbdumps" >
+   <item name="kartouche.sql" />
+   <item name="msg.sql" />
+  </folder>
+  <item name="make_sugg.php" />
+  <item name="cy.po" />
+  <item name="goto.php" />
+  <folder name="gwein" >
+   <item name="edit_sugg.php" />
+   <item name="export.php" />
+   <item name="import.php" />
+   <item name="sel_exp.php" />
+   <item name="adm_goto.php" />
+   <item name="adm_get_tables.php" />
+   <item name="adm_acc_sugg.php" />
+   <folder name="includes" >
+    <item name="navbar.php" />
+    <item name="adm_get_table_pref.php" />
+    <item name="edit_sugg_pref.php" />
+    <item name="index_pref.php" />
+    <item name="sel_exp_pref.php" />
+    <item name="sel_imp_pref.php" />
+    <item name="sel_sweep_pref.php" />
+   </folder>
+   <item name="index.php" />
+   <item name="testimport.php" />
+   <item name="sel_imp.php" />
+   <item name="adm_del_sugg.php" />
+   <item name="frikkie_adm_acc_sugg.php" />
+   <item name="frikkie_edit_sugg.php" />
+   <item name="sel_sweep.php" />
+   <item name="sweep.php" />
+   <item name="msgconv.php" />
+   <item name="import_jiba.php" />
+  </folder>
+  <folder name="extra" >
+   <item name="magic_quotes.php" />
+   <folder name="dictionary" >
+    <item name="import_dict.php" />
+    <item name="import_ooo.php" />
+   </folder>
+  </folder>
+  <folder name="includes" >
+   <item name="fns.php" />
+   <item name="footer.php" />
+   <item name="header.php" />
+   <item name="navbar.php" />
+   <item name="trans.php" />
+   <item name="error2.php" />
+   <item name="error_tick.php" />
+   <item name="get_tables_pref.php" />
+   <item name="editpot_pref.php" />
+   <item name="use_pref.php" />
+   <item name="userindex_pref.php" />
+   <item name="rem_pref.php" />
+   <item name="hallfame_pref.php" />
+  </folder>
+  <item name="stylesheet.css" />
+  <folder name="trans" >
+   <item name="trans_en.txt" />
+   <item name="trans_cy.txt" />
+  </folder>
+  <folder name="scratch" >
+   <item name="Find.php" />
+   <item name="arrays.php" />
+   <item name="editpot_limit.php" />
+   <item name="pagedresults.php" />
+   <item name="pagedresultset.zip" />
+   <item name="printTemplate.php" />
+   <item name="regex.php" />
+   <item name="text2link.php" />
+   <item name="dir_walk.php" />
+   <item name="clsOnlineUsers.php" />
+   <item name="import_annotated.php" />
+   <item name="fileheader.txt" />
+   <item name="get-tables-orig.php" />
+  </folder>
+  <item name="index.php" />
+  <item name="use.php" />
+  <folder name="aboutkart" >
+   <item name="index.php" />
+   <folder name="includes" >
+    <item name="navbar.php" />
+    <item name="ak_index_pref.php" />
+   </folder>
+   <item name="changelog.txt" />
+  </folder>
+  <item name="downloads.php" />
+  <folder name="download_counter" >
+   <item name="border.png" />
+   <item name="download.php" />
+   <item name="file1.php.dat" />
+   <item name="file2.php.dat" />
+   <item name="gnu.txt" />
+   <item name="index.php" />
+   <item name="install.txt" />
+  </folder>
+  <item name="lwdownload.php" />
+  <item name="remember.php" />
+  <item name="hallfame.php" />
+  <folder name="omnivore" >
+   <folder name="includes" >
+    <item name="navbar.php" />
+    <item name="om_index_pref.php" />
+    <item name="om_header.php" />
+    <item name="failed_om_pref.php" />
+   </folder>
+   <item name="index.php" />
+   <item name="failed_om.php" />
+  </folder>
+  <item name="image_test.php" />
+  <item name="get_tables2.php" />
+  <item name="dummyindex.php" />
+  <item name="make_dir_progress.php" />
+ </project>
+</webproject>
